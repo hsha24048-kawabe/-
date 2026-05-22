@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おみくじ勉強アプリ - プロトタイプ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>御御籤（おみくじ）勉強</h1>
+            <div class="status-bar">
+                <span id="user-level">Lv.1</span>
+                <div class="exp-bar"><div id="exp-progress"></div></div>
+                <span id="user-points">0 pt</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="character-area">
+                <div class="speech-bubble" id="speech-bubble">
+                    ボタンを押して、今日勉強する教科を占おう！
+                </div>
+                <div class="character" id="app-character">🧙‍♂️</div>
+            </div>
+
+            <div id="roulette-section" class="section">
+                <div class="roulette-wrapper">
+                    <div id="roulette-display">？</div>
+                </div>
+                <button id="start-roulette-btn">運命のルーレットを回す！</button>
+            </div>
+
+            <div id="timer-section" class="section hidden">
+                <h2 id="selected-subject-title">今日の教科：？？</h2>
+                
+                <div class="setup-controls" id="timer-setup">
+                    <p>勉強時間を選んでね：</p>
+                    <div class="time-options">
+                        <button class="time-btn" data-time="15">15分</button>
+                        <button class="time-btn" data-time="30">30分</button>
+                        <button class="time-btn" data-time="60">60分</button>
+                    </div>
+                </div>
+
+                <div class="timer-display-wrapper">
+                    <div id="timer-clock">00:00</div>
+                </div>
+
+                <button id="start-study-btn" class="hidden">修業開始！</button>
+            </div>
+        </main>
+
+        <footer>
+            <div class="premium-badge">プレミアムプラン（学生¥600/月）</div>
+            <div class="premium-features">
+                <button onclick="alert('AI家庭教師：「この問題の解き方はね…」')">💡 AI解説</button>
+                <button onclick="alert('〜♪ 集中できるBGMが流れ出しました')">🎵 BGM</button>
+                <button onclick="alert('YouTubeからおすすめの解説動画を検索しました！')">🔍 動画検索</button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
