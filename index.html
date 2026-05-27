@@ -3,370 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ゲーミフィケーション型おみくじ勉強アプリ (Prototype)</title>
-    <style>
-        :root {
-            --primary-color: #4caf50;
-            --secondary-color: #ff9800;
-            --background-color: #f5f5f5;
-            --card-color: #ffffff;
-            --text-color: #333333;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            background: var(--card-color);
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            padding: 25px;
-            box-sizing: border-box;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* ステータスバー */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            background: #e8f5e9;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        /* 画面切り替え制御 */
-        .screen {
-            display: none;
-        }
-        .screen.active {
-            display: block;
-        }
-
-        /* キャラクターエリア */
-        .char-box {
-            background: #fff3e0;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            border: 2px dashed var(--secondary-color);
-            position: relative;
-        }
-        .avatar {
-            font-size: 3rem;
-            animation: bounce 2s infinite;
-        }
-        .dialogue {
-            font-size: 0.95rem;
-            margin-top: 10px;
-            font-weight: bold;
-            color: #e65100;
-        }
-
-        /* ルーレットの演出 */
-        .roulette-display {
-            font-size: 2rem;
-            font-weight: bold;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #eceff1;
-            border-radius: 50px;
-            margin: 20px 0;
-            border: 4px solid var(--primary-color);
-            transition: all 0.3s;
-        }
-        .spinning {
-            animation: flash 0.1s infinite;
-        }
-
-        /* タイマー表示 */
-        .timer-display {
-            font-size: 3.5rem;
-            font-weight: bold;
-            font-family: monospace;
-            margin: 20px 0;
-            color: #37474f;
-        }
-
-        /* ボタン群 */
-        .btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.1s, background 0.2s;
-            width: 80%;
-            margin: 5px auto;
-        }
-        .btn:active {
-            transform: scale(0.95);
-        }
-        .btn-orange { background: var(--secondary-color); }
-        .btn-outline {
-            background: transparent;
-            color: #78909c;
-            border: 2px solid #b0bec5;
-            box-shadow: none;
-        }
-
-        /* ラジオボタンのカスタム */
-        .time-options {
-            display: flex;
-            justify-content: space-around;
-            margin: 15px 0;
-        }
-        .time-options label {
-            background: #f1f8e9;
-            padding: 8px 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .time-options input[type="radio"]:checked + span {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        /* アニメーション */
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes flash {
-            0% { background: #eceff1; }
-            50% { background: #ffe082; }
-            100% { background: #eceff1; }
-        }
-    </style>
+    <title>Omikuji Study V1 - 近未来おみくじ勉強アプリ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app-container">
+<div id="app">
     <div class="status-bar">
-        <div>Lv. <span id="user-level">1</span> (残り <span id="next-lv-exp">50</span>pt)</div>
-        <div>トータル: <span id="total-pts">0</span> pt</div>
+        <span>LV: <b id="level">1</b></span>
+        <span>EXP: <b id="exp">0</b>/500</span>
+        <span>PTS: <b id="points">0</b></span>
     </div>
 
     <div id="screen-omikuji" class="screen active">
-        <h2>今日のおみくじ勉強</h2>
-        <div class="char-box">
-            <div class="avatar">🦉</div>
-            <div id="navi-text" class="dialogue">「今日の運命の教科を決めよう！ボタンを押してね！」</div>
-        </div>
-        
-        <div id="roulette-box" class="roulette-display">？ ？ ？</div>
-
-        <div class="time-options">
-            <label><input type="radio" name="duration" value="15" checked> <span>15分</span></label>
-            <label><input type="radio" name="duration" value="30"> <span>30分</span></label>
-            <label><input type="radio" name="duration" value="60"> <span>60分</span></label>
+        <h1>OMIKUJI STUDY</h1>
+        <div class="character-box">
+            <div class="cat-avatar">🐱</div>
+            <div id="cat-msg" class="message-bubble">「始める」を押して、今日のクエストを決めよう！</div>
         </div>
 
-        <button class="btn" id="btn-draw" onclick="startRoulette()">おみくじを引く！</button>
-        <button class="btn btn-orange" id="btn-go-timer" onclick="transitionToTimer()" style="display:none;">学習をスタートする！</button>
+        <div class="roulette-container" id="roulette-wrap">
+            <div class="subject-display" id="subject-text">?</div>
+        </div>
+
+        <div id="time-options" class="time-select hidden">
+            <button class="btn" onclick="selectTime(15)">15分</button>
+            <button class="btn" onclick="selectTime(30)">30分</button>
+            <button class="btn" onclick="selectTime(60)">1時間</button>
+            <button class="btn" onclick="selectTime(120)">2時間</button>
+        </div>
+
+        <button id="btn-start" class="btn btn-main" onclick="startRoulette()">おみくじを引く</button>
+        <button id="btn-go" class="btn btn-main hidden" onclick="goToTimer()">勉強を開始する</button>
     </div>
 
     <div id="screen-timer" class="screen">
-        <h2 id="current-subject-title">国語のクエスト</h2>
-        <div class="char-box">
-            <div class="avatar">📝</div>
-            <div id="timer-navi-text" class="dialogue">「集中できてる？スマホを見ずに頑張ろう！」</div>
+        <h1 id="active-subject">教科名</h1>
+        <div class="character-box">
+            <div class="cat-avatar">😺</div>
+            <div id="timer-cat-msg" class="message-bubble">集中、集中！スマホは置いておこう。</div>
         </div>
-
-        <div id="timer-countdown" class="timer-display">15:00</div>
-
-        <button class="btn btn-outline" onclick="simulateDistraction()">（デモ）スマホの誘惑を検知</button>
-        <button class="btn btn-orange" style="margin-top: 15px;" onclick="abortStudy()">ギブアップ</button>
+        <div class="timer-display" id="timer-text">00:00:00</div>
+        <button class="btn btn-main btn-danger" onclick="quitStudy()">中止する</button>
     </div>
 
     <div id="screen-result" class="screen">
-        <h2>クエストクリア！</h2>
-        <div class="char-box">
-            <div class="avatar">🎉</div>
-            <div id="result-navi-text" class="dialogue">「素晴らしい！よく最後までやりきったね！」</div>
+        <h1>QUEST CLEAR!</h1>
+        <div class="character-box">
+            <div class="cat-avatar">😸</div>
+            <div id="result-cat-msg" class="message-bubble">よく頑張ったね！また明日も待ってるよ。</div>
         </div>
-
-        <div style="background: #e3f2fd; padding: 15px; border-radius: 15px; margin: 20px 0;">
-            <p><b id="result-subject"></b> を勉強した！</p>
-            <p>獲得ポイント: <span style="color:red; font-weight:bold;">+<span id="earned-points">0</span> pt</span></p>
-            <p style="font-size:0.85rem; color:#666;" id="line-notify-status">※保護者のLINEへ成果を通知しました。</p>
+        <div class="result-card">
+            <p>完了教科: <span id="res-subject">-</span></p>
+            <p>獲得ポイント: <span id="res-pts">+0</span></p>
+            <p class="notice-text">※保護者のLINEへ通知を送信しました</p>
         </div>
-
-        <button class="btn" onclick="returnToMain()">トップへ戻る</button>
+        <button class="btn btn-main" onclick="resetApp()">トップに戻る</button>
     </div>
 </div>
 
-<script>
-    // アプリ状態管理データ
-    const subjects = ["国語", "数学", "英語", "理科", "社会", "副教科"];
-    let appState = {
-        level: 1,
-        totalPoints: 0,
-        expToNextLevel: 50,
-        selectedSubject: "",
-        selectedDuration: 15, // 分
-        timerInterval: null,
-        timeLeft: 0 // 秒
-    };
-
-    // 1. ルーレット機能
-    function startRoulette() {
-        const btnDraw = document.getElementById('btn-draw');
-        const rouletteBox = document.getElementById('roulette-box');
-        const naviText = document.getElementById('navi-text');
-        
-        btnDraw.disabled = true;
-        rouletteBox.classList.add('spinning');
-        
-        let count = 0;
-        const interval = setInterval(() => {
-            const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
-            rouletteBox.textContent = randomSubject;
-            count++;
-            
-            if (count > 20) { // 約2秒間ルーレットを回す
-                clearInterval(interval);
-                rouletteBox.classList.remove('spinning');
-                
-                // 結果の決定
-                appState.selectedSubject = rouletteBox.textContent;
-                naviText.textContent = `「よし、今日は『${appState.selectedSubject}』に決定！さあ、始める準備はいい？」`;
-                
-                btnDraw.style.display = 'none';
-                document.getElementById('btn-go-timer').style.display = 'block';
-            }
-        }, 100);
-    }
-
-    // 2. タイマー画面への遷移
-    function transitionToTimer() {
-        // 設定された時間を取得
-        const radioOptions = document.getElementsByName('duration');
-        for (const option of radioOptions) {
-            if (option.checked) {
-                appState.selectedDuration = parseInt(option.value);
-                break;
-            }
-        }
-
-        // タイマー初期化
-        appState.timeLeft = appState.selectedDuration * 60; // 実際は仕様通り（15分等）
-        // 🚨 デモ用に15分を「15秒」に圧縮してテストしやすくします
-        appState.timeLeft = appState.selectedDuration === 15 ? 15 : appState.selectedDuration; 
-
-        updateTimerDisplay();
-
-        document.getElementById('current-subject-title').textContent = `🔥 ${appState.selectedSubject} のクエスト`;
-        document.getElementById('timer-navi-text').textContent = "「よし、タイマースタート！他のアプリを開いちゃダメだよ？」";
-
-        switchScreen('screen-timer');
-        
-        // カウントダウン開始
-        appState.timerInterval = setInterval(() => {
-            appState.timeLeft--;
-            updateTimerDisplay();
-
-            if (appState.timeLeft <= 0) {
-                clearInterval(appState.timerInterval);
-                completeStudy();
-            }
-        }, 1000);
-    }
-
-    function updateTimerDisplay() {
-        const minutes = Math.floor(appState.timeLeft / 60);
-        const seconds = appState.timeLeft % 60;
-        document.getElementById('timer-countdown').textContent = 
-            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
-
-    // 3. 途中離脱の抑止（疑似シミュレーション）
-    function simulateDistraction() {
-        // 本来は Page Visibility API やブラウザ離脱検知イベントなどで作動
-        const navi = document.getElementById('timer-navi-text');
-        navi.innerHTML = "🚨<span style='color:red;'>「コラッ！スマホを触ろうとしないで！勉強に戻って！」</span>";
-        alert("【警告】アプリから離れようとしました！キャラクターが引き止めています。");
-    }
-
-    function abortStudy() {
-        if(confirm("本当に諦めますか？ポイントはもらえなくなっちゃうよ？")) {
-            clearInterval(appState.timerInterval);
-            returnToMain();
-        }
-    }
-
-    // 4. 学習完了＆リザルト（ポイント・レベルアップ・LINE疑似連携）
-    function completeStudy() {
-        // ポイント計算：1分＝1ポイント換算（デモ）
-        const earned = appState.selectedDuration; 
-        appState.totalPoints += earned;
-        appState.expToNextLevel -= earned;
-
-        // レベルアップ判定
-        let levelUpMessage = "「また明日も頑張ろう！この調子だよ！」";
-        if (appState.expToNextLevel <= 0) {
-            appState.level += 1;
-            appState.expToNextLevel = 50; // 次のレベルまで一律50pt（簡易化）
-            levelUpMessage = `🎉「レベルアップ！Lv.${appState.level}になったよ！すごすぎる！」`;
-            
-            // 外部ポイント連携（仕様3.4：レベルが5あがるごとに）
-            if (appState.level % 5 === 0) {
-                levelUpMessage += " 🎁外部ポイント（電子決済）の獲得権利をゲット！";
-            }
-        }
-
-        // 画面更新
-        document.getElementById('user-level').textContent = appState.level;
-        document.getElementById('next-lv-exp').textContent = appState.expToNextLevel;
-        document.getElementById('total-pts').textContent = appState.totalPoints;
-
-        document.getElementById('result-subject').textContent = appState.selectedSubject;
-        document.getElementById('earned-points').textContent = earned;
-        document.getElementById('result-navi-text').textContent = levelUpMessage;
-
-        // LINE通知のテキスト更新
-        document.getElementById('line-notify-status').textContent = 
-            `※保護者のLINEへ「${appState.selectedSubject}を${appState.selectedDuration}分勉強しました！」と自動通知しました。`;
-
-        switchScreen('screen-result');
-    }
-
-    // 共通ユーティリティ
-    function switchScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(screenId).classList.add('active');
-    }
-
-    function returnToMain() {
-        // 状態初期化してトップへ
-        document.getElementById('btn-draw').style.display = 'block';
-        document.getElementById('btn-go-timer').style.display = 'none';
-        document.getElementById('roulette-box').textContent = "？ ？ ？";
-        document.getElementById('navi-text').textContent = "「次の運命の教科を決めよう！ボタンを押してね！」";
-        switchScreen('screen-omikuji');
-    }
-</script>
+<script src="script.js"></script>
 </body>
 </html>
