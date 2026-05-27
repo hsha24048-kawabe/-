@@ -1,13 +1,13 @@
-CSS
 :root {
-    --primary-color: #bfa3bf; /* 視認性を上げるため少し濃くしたThistleカラー */
-    --accent-color: #d8bfd8;  /* 指定の Thistle カラー */
-    --bg-light: #f4f3f7;      /* 明るく爽やかなサイバーホワイト */
-    --panel-bg: rgba(255, 255, 255, 0.65); /* 透明感のあるグラスモフィズム */
-    --text-main: #3d3a45;     /* 読みやすいダークグレー */
+    --primary-color: #bfa3bf; 
+    --accent-color: #d8bfd8;  
+    --bg-light: #f4f3f7;      
+    --panel-bg: rgba(255, 255, 255, 0.65); 
+    --text-main: #3d3a45;     
     --text-muted: #757082;
-    --neon-glow: 0 8px 20px rgba(216, 191, 216, 0.4);
+    --neon-glow: 0 8px 20px rgba(216, 191, 216, 0.3);
     --danger-color: #ff5252;
+    --pause-color: #64b5f6; /* 一時停止用のサイバーブルー */
 }
 
 * {
@@ -16,8 +16,6 @@ CSS
 }
 
 body {
-    background-color: var(--bg-light);
-    /* ほんのり未来感のあるグラデーション背景 */
     background: radial-gradient(circle at 80% 20%, #fbf9fc 0%, #e8e5ed 100%);
     color: var(--text-main);
     margin: 0;
@@ -28,24 +26,25 @@ body {
     overflow: hidden;
 }
 
-/* アプリ筐体（ホログラムパネル風） */
+/* アプリ筐体 */
 #app {
     width: 100%;
-    max-width: 450px;
-    height: 90vh;
+    max-width: 420px;
+    height: 85vh; 
+    min-height: 580px;
     background: rgba(255, 255, 255, 0.75);
     border: 2px solid rgba(216, 191, 216, 0.6);
     border-radius: 30px;
-    backdrop-filter: blur(20px); /* すりガラス効果 */
+    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 15px 35px rgba(180, 160, 190, 0.2), var(--neon-glow);
+    box-shadow: 0 15px 35px rgba(180, 160, 190, 0.15), var(--neon-glow);
     display: flex;
     flex-direction: column;
-    position: relative;
     padding: 25px;
+    overflow: hidden;
 }
 
-/* ステータスバー */
+/* 上部ステータスバー固定 */
 .status-bar {
     display: flex;
     justify-content: space-between;
@@ -54,10 +53,10 @@ body {
     border-radius: 15px;
     font-size: 0.9rem;
     border: 1px solid rgba(216, 191, 216, 0.4);
-    margin-bottom: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     font-weight: bold;
     color: var(--text-muted);
+    flex-shrink: 0;
+    margin-bottom: 15px;
 }
 
 .status-bar b {
@@ -68,26 +67,34 @@ body {
 .screen {
     display: none;
     flex-direction: column;
-    align-items: center;
     height: 100%;
-    text-align: center;
+    width: 100%;
 }
 
 .screen.active {
     display: flex;
 }
 
+.screen-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
 h1 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: var(--primary-color);
-    margin: 10px 0 20px 0;
+    margin: 5px 0 10px 0;
     letter-spacing: 2px;
     font-weight: 800;
 }
 
-/* キャラクター関連 */
+/* キャラクター */
 .character-box {
-    margin: 15px 0;
+    margin: 5px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,46 +102,44 @@ h1 {
 }
 
 .cat-avatar {
-    font-size: 4.5rem;
-    filter: drop-shadow(0 5px 10px rgba(216, 191, 216, 0.6));
+    font-size: 3.8rem;
+    filter: drop-shadow(0 5px 10px rgba(216, 191, 216, 0.5));
     animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-6px); }
 }
 
 .message-bubble {
     background: #ffffff;
     border: 1px solid rgba(216, 191, 216, 0.6);
-    color: var(--text-main);
-    padding: 12px 18px;
+    padding: 10px 15px;
     border-radius: 18px;
-    font-size: 0.9rem;
-    margin-top: 12px;
-    max-width: 85%;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    max-width: 90%;
     line-height: 1.4;
-    box-shadow: 0 8px 16px rgba(180, 160, 190, 0.1);
+    box-shadow: 0 4px 12px rgba(180, 160, 190, 0.08);
 }
 
-/* ルーレット（ホワイトホログラム） */
+/* ルーレット */
 .roulette-container {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     border: 3px dashed var(--primary-color);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
-    position: relative;
+    margin: 15px 0;
     background: radial-gradient(circle, rgba(216, 191, 216, 0.2) 0%, transparent 75%);
-    box-shadow: inset 0 0 15px rgba(216, 191, 216, 0.1), 0 4px 10px rgba(0,0,0,0.02);
+    flex-shrink: 0;
 }
 
 .subject-display {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: bold;
     color: var(--primary-color);
 }
@@ -148,16 +153,35 @@ h1 {
     to { transform: rotate(360deg); }
 }
 
-/* 時間セレクター */
+/* メインボタン */
+.btn-main {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 2px solid var(--primary-color);
+    background: var(--accent-color);
+    color: #ffffff;
+    box-shadow: var(--neon-glow);
+    border-radius: 16px;
+    margin-top: 10px;
+    flex-shrink: 0;
+}
+
+.btn-main:hover {
+    background: #ffffff;
+    color: var(--primary-color);
+}
+
+/* 時間選択 */
 .time-select {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
-    margin: 15px 0;
+    margin-top: 15px;
 }
 
-/* ボタン群 */
+/* ボタンの基本スタイル */
 .btn {
     background: #ffffff;
     border: 1px solid rgba(216, 191, 216, 0.7);
@@ -165,72 +189,70 @@ h1 {
     padding: 12px;
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(180, 160, 190, 0.08);
 }
 
 .btn:hover {
     background: rgba(216, 191, 216, 0.15);
-    border-color: var(--primary-color);
 }
 
-.btn-main {
+/* 【新規】タイマーの2連ボタン用コントロールエリア */
+.timer-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     width: 100%;
-    padding: 16px;
-    font-size: 1.1rem;
-    margin-top: auto;
-    margin-bottom: 15px;
-    border: 2px solid var(--primary-color);
-    background: var(--accent-color);
-    color: #ffffff;
-    box-shadow: var(--neon-glow);
+    margin-top: 20px;
 }
 
-.btn-main:hover {
-    background: #ffffff;
-    color: var(--primary-color);
-    box-shadow: 0 5px 15px rgba(180, 160, 190, 0.15);
+.btn-control {
+    padding: 15px;
+    font-size: 1.05rem;
+    border-radius: 14px;
+}
+
+/* 一時停止ボタン専用スタイル */
+.btn-pause {
+    border-color: var(--pause-color);
+    color: var(--pause-color);
+}
+.btn-pause:hover {
+    background: var(--pause-color);
+    color: #ffffff;
 }
 
 .btn-danger {
     border-color: var(--danger-color);
-    background: #ffffff;
     color: var(--danger-color);
-    box-shadow: 0 4px 10px rgba(255, 82, 82, 0.08);
 }
-
 .btn-danger:hover {
     background: var(--danger-color);
     color: #ffffff;
-    box-shadow: 0 6px 15px rgba(255, 82, 82, 0.3);
 }
 
-/* デジタルタイマー */
+/* タイマー表示 */
 .timer-display {
-    font-size: 4.2rem;
+    font-size: 3.8rem;
     font-family: 'Courier New', Courier, monospace;
     color: var(--text-main);
-    margin: 35px 0;
+    margin: 30px 0;
     font-weight: bold;
-    letter-spacing: -1px;
 }
 
-/* クエストリザルトカード */
+/* リザルトカード */
 .result-card {
     background: #ffffff;
-    padding: 25px;
+    padding: 20px;
     border-radius: 20px;
     width: 100%;
     border: 1px solid rgba(216, 191, 216, 0.6);
-    box-shadow: 0 10px 25px rgba(180, 160, 190, 0.1);
-    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(180, 160, 190, 0.08);
+    margin-bottom: 15px;
 }
 
 .result-card p {
-    font-size: 1.1rem;
-    margin: 12px 0;
-    color: var(--text-muted);
+    margin: 10px 0;
 }
 
 .result-card span {
@@ -239,10 +261,8 @@ h1 {
 }
 
 .notice-text {
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
     color: var(--text-muted) !important;
-    opacity: 0.8;
-    margin-top: 20px !important;
 }
 
 .hidden {

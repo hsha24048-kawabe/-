@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -16,49 +17,60 @@
     </div>
 
     <div id="screen-omikuji" class="screen active">
-        <h1>OMIKUJI STUDY</h1>
-        <div class="character-box">
-            <div class="cat-avatar">🐱</div>
-            <div id="cat-msg" class="message-bubble">「始める」を押して、今日のクエストを決めよう！</div>
-        </div>
+        <div class="screen-body">
+            <h1>OMIKUJI STUDY</h1>
+            <div class="character-box">
+                <div class="cat-avatar">🐱</div>
+                <div id="cat-msg" class="message-bubble">「始める」を押して、今日のクエストを決めよう！</div>
+            </div>
 
-        <div class="roulette-container" id="roulette-wrap">
-            <div class="subject-display" id="subject-text">?</div>
-        </div>
+            <div class="roulette-container" id="roulette-wrap">
+                <div class="subject-display" id="subject-text">?</div>
+            </div>
 
-        <div id="time-options" class="time-select hidden">
-            <button class="btn" onclick="selectTime(15)">15分</button>
-            <button class="btn" onclick="selectTime(30)">30分</button>
-            <button class="btn" onclick="selectTime(60)">1時間</button>
-            <button class="btn" onclick="selectTime(120)">2時間</button>
-        </div>
+            <button id="btn-start" class="btn btn-main" onclick="startRoulette()">始める</button>
 
-        <button id="btn-start" class="btn btn-main" onclick="startRoulette()">おみくじを引く</button>
-        <button id="btn-go" class="btn btn-main hidden" onclick="goToTimer()">勉強を開始する</button>
+            <div id="time-options" class="time-select hidden">
+                <button class="btn" onclick="selectTime(15)">15分</button>
+                <button class="btn" onclick="selectTime(30)">30分</button>
+                <button class="btn" onclick="selectTime(60)">1時間</button>
+                <button class="btn" onclick="selectTime(120)">2時間</button>
+            </div>
+            
+            <button id="btn-go" class="btn btn-main hidden" onclick="goToTimer()">勉強を開始する</button>
+        </div>
     </div>
 
     <div id="screen-timer" class="screen">
-        <h1 id="active-subject">教科名</h1>
-        <div class="character-box">
-            <div class="cat-avatar">😺</div>
-            <div id="timer-cat-msg" class="message-bubble">集中、集中！スマホは置いておこう。</div>
+        <div class="screen-body">
+            <h1 id="active-subject">教科名</h1>
+            <div class="character-box">
+                <div class="cat-avatar">😺</div>
+                <div id="timer-cat-msg" class="message-bubble">集中、集中！スマホは置いておこう。</div>
+            </div>
+            <div class="timer-display" id="timer-text">00:00:00</div>
+            
+            <div class="timer-controls">
+                <button id="btn-pause" class="btn btn-control btn-pause" onclick="togglePause()">一時停止</button>
+                <button class="btn btn-control btn-danger" onclick="quitStudy()">中止する</button>
+            </div>
         </div>
-        <div class="timer-display" id="timer-text">00:00:00</div>
-        <button class="btn btn-main btn-danger" onclick="quitStudy()">中止する</button>
     </div>
 
     <div id="screen-result" class="screen">
-        <h1>QUEST CLEAR!</h1>
-        <div class="character-box">
-            <div class="cat-avatar">😸</div>
-            <div id="result-cat-msg" class="message-bubble">よく頑張ったね！また明日も待ってるよ。</div>
+        <div class="screen-body">
+            <h1>QUEST CLEAR!</h1>
+            <div class="character-box">
+                <div class="cat-avatar">😸</div>
+                <div id="result-cat-msg" class="message-bubble">よく頑張ったね！また明日も待ってるよ。</div>
+            </div>
+            <div class="result-card">
+                <p>完了教科: <span id="res-subject">-</span></p>
+                <p>獲得ポイント: <span id="res-pts">+0</span></p>
+                <p class="notice-text">※保護者のLINEへ通知を送信しました</p>
+            </div>
+            <button class="btn btn-main" onclick="resetApp()">トップに戻る</button>
         </div>
-        <div class="result-card">
-            <p>完了教科: <span id="res-subject">-</span></p>
-            <p>獲得ポイント: <span id="res-pts">+0</span></p>
-            <p class="notice-text">※保護者のLINEへ通知を送信しました</p>
-        </div>
-        <button class="btn btn-main" onclick="resetApp()">トップに戻る</button>
     </div>
 </div>
 
