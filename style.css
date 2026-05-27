@@ -1,12 +1,13 @@
 CSS
 :root {
-    --primary-color: #d8bfd8; /* 指定の Thistle カラー */
-    --accent-color: #e0b0ff;
-    --bg-dark: #0f0f1b;       /* 深みのあるサイバーダーク */
-    --card-bg: rgba(216, 191, 216, 0.08); /* グラスモフィズム（透き通る質感） */
-    --text-main: #f0f0f5;
-    --neon-glow: 0 0 15px rgba(216, 191, 216, 0.4);
-    --danger-color: #ff6b6b;
+    --primary-color: #bfa3bf; /* 視認性を上げるため少し濃くしたThistleカラー */
+    --accent-color: #d8bfd8;  /* 指定の Thistle カラー */
+    --bg-light: #f4f3f7;      /* 明るく爽やかなサイバーホワイト */
+    --panel-bg: rgba(255, 255, 255, 0.65); /* 透明感のあるグラスモフィズム */
+    --text-main: #3d3a45;     /* 読みやすいダークグレー */
+    --text-muted: #757082;
+    --neon-glow: 0 8px 20px rgba(216, 191, 216, 0.4);
+    --danger-color: #ff5252;
 }
 
 * {
@@ -15,7 +16,9 @@ CSS
 }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-light);
+    /* ほんのり未来感のあるグラデーション背景 */
+    background: radial-gradient(circle at 80% 20%, #fbf9fc 0%, #e8e5ed 100%);
     color: var(--text-main);
     margin: 0;
     display: flex;
@@ -25,15 +28,17 @@ body {
     overflow: hidden;
 }
 
-/* アプリ筐体 */
+/* アプリ筐体（ホログラムパネル風） */
 #app {
     width: 100%;
     max-width: 450px;
     height: 90vh;
-    background: linear-gradient(145deg, #161625, #0f0f1b);
-    border: 2px solid var(--primary-color);
+    background: rgba(255, 255, 255, 0.75);
+    border: 2px solid rgba(216, 191, 216, 0.6);
     border-radius: 30px;
-    box-shadow: var(--neon-glow);
+    backdrop-filter: blur(20px); /* すりガラス効果 */
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 15px 35px rgba(180, 160, 190, 0.2), var(--neon-glow);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -45,17 +50,18 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 12px 20px;
-    background: var(--card-bg);
+    background: var(--panel-bg);
     border-radius: 15px;
     font-size: 0.9rem;
-    border: 1px solid rgba(216, 191, 216, 0.2);
+    border: 1px solid rgba(216, 191, 216, 0.4);
     margin-bottom: 25px;
-    box-shadow: inset 0 0 10px rgba(216, 191, 216, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    font-weight: bold;
+    color: var(--text-muted);
 }
 
 .status-bar b {
     color: var(--primary-color);
-    text-shadow: var(--neon-glow);
 }
 
 /* 画面切り替え */
@@ -74,9 +80,9 @@ body {
 h1 {
     font-size: 1.6rem;
     color: var(--primary-color);
-    text-shadow: var(--neon-glow);
     margin: 10px 0 20px 0;
     letter-spacing: 2px;
+    font-weight: 800;
 }
 
 /* キャラクター関連 */
@@ -90,7 +96,7 @@ h1 {
 
 .cat-avatar {
     font-size: 4.5rem;
-    filter: drop-shadow(var(--neon-glow));
+    filter: drop-shadow(0 5px 10px rgba(216, 191, 216, 0.6));
     animation: float 4s ease-in-out infinite;
 }
 
@@ -100,18 +106,19 @@ h1 {
 }
 
 .message-bubble {
-    background: var(--card-bg);
-    border: 1px solid rgba(216, 191, 216, 0.4);
+    background: #ffffff;
+    border: 1px solid rgba(216, 191, 216, 0.6);
+    color: var(--text-main);
     padding: 12px 18px;
     border-radius: 18px;
     font-size: 0.9rem;
     margin-top: 12px;
     max-width: 85%;
     line-height: 1.4;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 16px rgba(180, 160, 190, 0.1);
 }
 
-/* ルーレット（ホログラムディスク風） */
+/* ルーレット（ホワイトホログラム） */
 .roulette-container {
     width: 180px;
     height: 180px;
@@ -122,15 +129,14 @@ h1 {
     align-items: center;
     margin: 20px 0;
     position: relative;
-    background: radial-gradient(circle, rgba(216, 191, 216, 0.15) 0%, transparent 75%);
-    box-shadow: 0 0 15px rgba(216, 191, 216, 0.1);
+    background: radial-gradient(circle, rgba(216, 191, 216, 0.2) 0%, transparent 75%);
+    box-shadow: inset 0 0 15px rgba(216, 191, 216, 0.1), 0 4px 10px rgba(0,0,0,0.02);
 }
 
 .subject-display {
     font-size: 2.2rem;
     font-weight: bold;
     color: var(--primary-color);
-    text-shadow: var(--neon-glow);
 }
 
 .spinning {
@@ -153,19 +159,20 @@ h1 {
 
 /* ボタン群 */
 .btn {
-    background: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
+    background: #ffffff;
+    border: 1px solid rgba(216, 191, 216, 0.7);
+    color: var(--text-main);
     padding: 12px;
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.25s ease;
     font-weight: bold;
+    box-shadow: 0 4px 10px rgba(180, 160, 190, 0.08);
 }
 
 .btn:hover {
-    background: rgba(216, 191, 216, 0.2);
-    box-shadow: var(--neon-glow);
+    background: rgba(216, 191, 216, 0.15);
+    border-color: var(--primary-color);
 }
 
 .btn-main {
@@ -174,61 +181,67 @@ h1 {
     font-size: 1.1rem;
     margin-top: auto;
     margin-bottom: 15px;
-    border-width: 2px;
-    background: rgba(216, 191, 216, 0.1);
+    border: 2px solid var(--primary-color);
+    background: var(--accent-color);
+    color: #ffffff;
+    box-shadow: var(--neon-glow);
 }
 
 .btn-main:hover {
-    background: var(--primary-color);
-    color: var(--bg-dark);
+    background: #ffffff;
+    color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(180, 160, 190, 0.15);
 }
 
 .btn-danger {
     border-color: var(--danger-color);
+    background: #ffffff;
     color: var(--danger-color);
+    box-shadow: 0 4px 10px rgba(255, 82, 82, 0.08);
 }
 
 .btn-danger:hover {
     background: var(--danger-color);
-    color: var(--text-main);
-    box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(255, 82, 82, 0.3);
 }
 
 /* デジタルタイマー */
 .timer-display {
     font-size: 4.2rem;
     font-family: 'Courier New', Courier, monospace;
-    color: var(--primary-color);
+    color: var(--text-main);
     margin: 35px 0;
-    text-shadow: var(--neon-glow);
     font-weight: bold;
+    letter-spacing: -1px;
 }
 
 /* クエストリザルトカード */
 .result-card {
-    background: var(--card-bg);
+    background: #ffffff;
     padding: 25px;
     border-radius: 20px;
     width: 100%;
-    border: 1px solid var(--primary-color);
-    box-shadow: inset 0 0 15px rgba(216, 191, 216, 0.1);
+    border: 1px solid rgba(216, 191, 216, 0.6);
+    box-shadow: 0 10px 25px rgba(180, 160, 190, 0.1);
     margin-bottom: 20px;
 }
 
 .result-card p {
     font-size: 1.1rem;
     margin: 12px 0;
+    color: var(--text-muted);
 }
 
 .result-card span {
     font-weight: bold;
     color: var(--primary-color);
-    text-shadow: var(--neon-glow);
 }
 
 .notice-text {
     font-size: 0.8rem !important;
-    opacity: 0.6;
+    color: var(--text-muted) !important;
+    opacity: 0.8;
     margin-top: 20px !important;
 }
 
